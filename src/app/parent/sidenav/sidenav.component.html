@@ -1,0 +1,27 @@
+<mat-sidenav-container class="app-sidenav-container">
+    <mat-sidenav #sidenav class="app-sidenav mat-elevation-z10"
+     [opened]="!isSmallScreen" [mode]="isSmallScreen ? 'over': 'side' ">
+     <mat-toolbar color="primary">
+        Contacts
+    </mat-toolbar>
+    <mat-nav-list>
+        <mat-list-item>
+            <mat-icon mat-list-icon>folder</mat-icon>
+            <a matLine routerLink='/admin/parentChild/1'>parent-child 1</a>
+        </mat-list-item>
+        <mat-divider></mat-divider>
+        <mat-list-item>
+            <mat-icon mat-list-icon>folder</mat-icon>
+            <a matLine routerLink='/admin/parentChild/2'>parent-child 2</a>
+        </mat-list-item>
+    </mat-nav-list>   
+</mat-sidenav>
+    <div class="app-sidenav-content">
+        <!-- exposing a toggle side nav event that will fire whenever toggle button is pressed -->
+        <app-toolbar (toggleSidenav)="sidenav.toggle()"></app-toolbar>
+        <div class="wrapper">
+            <router-outlet></router-outlet>
+        </div> 
+    </div>
+
+</mat-sidenav-container>
