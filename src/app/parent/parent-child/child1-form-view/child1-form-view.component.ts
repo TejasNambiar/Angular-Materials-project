@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar, MatSnackBarRef, SimpleSnackBar } from '@angular/material/snack-bar';
 import { Station } from 'src/app/model/station';
+import { StationForm } from 'src/app/model/station copy';
 import { Child1FormServiceService } from 'src/app/services/child1-form-service/child1-form-service.service';
 import { SubmitDialogComponent } from 'src/app/shared/submit-dialog/submit-dialog.component';
 
@@ -45,7 +46,7 @@ export class Child1FormViewComponent implements OnInit {
     console.log('Saved Before Update: ' + JSON.stringify(this.stationForm.value));
     console.log("Station stationName: "+this.stationForm.get("stationName")?.value);
     
-    let formRef :Station = {
+    let formRef :StationForm = {
       "stationName": this.stationForm.get("stationName")?.value,
       "stationCode": this.stationForm.get("stationCode")?.value 
     }
@@ -56,6 +57,7 @@ export class Child1FormViewComponent implements OnInit {
       }
     })
 
+    this.service.loadAll();
     this.stationForm.reset();
   }
 

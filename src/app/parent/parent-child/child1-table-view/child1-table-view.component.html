@@ -6,14 +6,23 @@
   <div class="mat-elevation-z8">
     <table mat-table [dataSource]="dataSource" matSort>
   
-      <ng-container matColumnDef="Station Name">
+      <ng-container matColumnDef="StationName">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Station Name </th>
         <td mat-cell *matCellDef="let station"> {{station.stationName}} </td>
       </ng-container>
   
-      <ng-container matColumnDef="Station Code">
+      <ng-container matColumnDef="StationCode">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Station Code </th>
         <td mat-cell *matCellDef="let station"> {{station.stationCode}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="Delete">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Admin </th>
+        <td mat-cell *matCellDef="let station"> 
+          <div class="button-container">
+            <button type="button" class="btn btn-outline-danger" (click)="openConfirmationDialog(station.id)">Delete1</button>
+          </div>
+        </td>
       </ng-container>
   
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
@@ -25,6 +34,6 @@
       </tr>
     </table>
   
-    <mat-paginator [pageSize]="2" [pageSizeOptions]="[2, 5, 10, 20]" showFirstLastButtons>
+    <mat-paginator [pageSize]="2" [pageSizeOptions]="[2, 4, 8, 10, 20]" showFirstLastButtons>
     </mat-paginator>
   </div>

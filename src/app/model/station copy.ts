@@ -1,5 +1,4 @@
-export class Station {
-    "id": Number
+export class StationForm {
     "stationName": string;
     "stationCode": string;
 }

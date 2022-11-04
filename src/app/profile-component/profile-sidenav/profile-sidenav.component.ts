@@ -5,18 +5,18 @@ import { Child1FormServiceService } from 'src/app/services/child1-form-service/c
 const SMALL_WIDTH_BREAKPOINT = 720;
 
 @Component({
-  selector: 'app-sidenav',
-  templateUrl: './sidenav.component.html',
-  styleUrls: ['./sidenav.component.scss']
+  selector: 'app-profile-sidenav',
+  templateUrl: './profile-sidenav.component.html',
+  styleUrls: ['./profile-sidenav.component.scss']
 })
-export class SidenavComponent implements OnInit {
+export class ProfileSidenavComponent implements OnInit {
 
   isSmallScreen !: boolean;
 
   constructor(private breakPointObserver: BreakpointObserver, private service:Child1FormServiceService) { }
 
   ngOnInit(): void {
-    // this.service.loadAll()
+    this.service.loadAll()
     this.breakPointObserver
       // use this to observe any changes in size of screen
       // .observe([ Breakpoints.XSmall]) // predefined BreakPoints available
