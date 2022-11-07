@@ -6,6 +6,7 @@ import { Station } from 'src/app/model/station';
 import { StationForm } from 'src/app/model/station copy';
 import { Child1FormServiceService } from 'src/app/services/child1-form-service/child1-form-service.service';
 import { SubmitDialogComponent } from 'src/app/shared/submit-dialog/submit-dialog.component';
+import { Child1TableViewComponent } from '../child1-table-view/child1-table-view.component';
 
 @Component({
   selector: 'app-child1-form-view',
@@ -26,7 +27,7 @@ export class Child1FormViewComponent implements OnInit {
   ngOnInit(): void {    
   this.stationForm = this.fb.group({
     stationName: ['', [Validators.required, Validators.minLength(3)]],
-    stationCode: ['', [Validators.required, Validators.maxLength(5),Validators.minLength(4)]]
+    stationCode: ['', [Validators.required, Validators.maxLength(5),Validators.minLength(3)]]
   });
   }
 
@@ -53,6 +54,8 @@ export class Child1FormViewComponent implements OnInit {
 
     this.service.addNewElement(formRef).then(station =>{
       if(station){
+        let child1 = new Child1TableViewComponent(this.service, this.snackBar,this.dialog);
+        child1.refresh()
         this.openSnackBar('Station added','Close')
       }
     })

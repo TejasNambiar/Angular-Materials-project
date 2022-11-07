@@ -7,6 +7,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Station } from 'src/app/model/station';
 import { Child1FormServiceService } from 'src/app/services/child1-form-service/child1-form-service.service';
 import { SubmitDialogComponent } from 'src/app/shared/submit-dialog/submit-dialog.component';
+import { UpdateDialogComponent } from 'src/app/shared/update-dialog/update-dialog.component';
 
 @Component({
   selector: 'app-child1-table-view',
@@ -29,14 +30,7 @@ export class Child1TableViewComponent implements OnInit {
 
   ngOnInit(): void {
     
-    this.service.loadAll()
-    // indirect observable data injection into datasource using subscribe
-    this.service.retrieveArray().subscribe(result =>{
-      console.log("result: "+JSON.stringify(result))
-      this.stationArray = result
-      this.dataSource.data = result
-    })
-
+    this.refresh()
     console.log("Data source: "+JSON.stringify(this.dataSource.data))
   }
 
@@ -50,7 +44,7 @@ export class Child1TableViewComponent implements OnInit {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  openConfirmationDialog(id:Number){
+  deleteConfirmationDialog(id:Number){
     this.dialogRef = this.dialog.open(SubmitDialogComponent,{
       disableClose: false
     });
@@ -65,17 +59,53 @@ export class Child1TableViewComponent implements OnInit {
     console.log("customer form")
     console.log('Saved Before Update: ' + id);
 
-    // this.service.deleteStation(id).then((station:Station) =>{
-    //   if(station){
-    //     this.openSnackBar('Station deleted','Close')
-    //   }
-    // })
+    this.service.deleteElement(id).then((id:Number) =>{
+      if(id){
+        this.openSnackBar('Station deleted','Close')
+        this.refresh()
+      }
+    })
+  }
+
+  updateConfirmationDialog(station:Station){
+    this.dialogRef = this.dialog.open(UpdateDialogComponent,{
+      disableClose: false,
+      autoFocus: true,
+      data: station
+    });
+    this.dialogRef.afterClosed().subscribe(result => {
+        if(result)
+          this.updateStation(station)
+      }
+    )
+  }
+
+  updateStation(station:Station) {
+    console.log("customer form")
+    console.log('Saved Before Update: ' + station);
+
+    this.service.updateElement(station).then((station:Station) =>{
+      if(station){
+        this.openSnackBar('Station Updated','Close')
+        this.refresh()
+      }
+    })
   }
 
   openSnackBar(message: string, action:string): MatSnackBarRef<SimpleSnackBar> {
     return this.snackBar.open(message,action,{
       duration:4000
     });
+  }
+
+  refresh():void{
+    this.service.loadAll()
+    // indirect observable data injection into datasource using subscribe
+    this.service.retrieveArray().subscribe(result =>{
+      console.log("result: "+JSON.stringify(result))
+      this.stationArray = result
+      this.dataSource.data = result
+    })
   }
 
 }

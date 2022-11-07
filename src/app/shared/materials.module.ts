@@ -35,7 +35,6 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
-import { SubmitDialogComponent } from './submit-dialog/submit-dialog.component';
 
 const MATERIALSLIST = [
     MatAutocompleteModule,
@@ -81,7 +80,6 @@ const MATERIALSLIST = [
   imports: [MATERIALSLIST],
   exports: [MATERIALSLIST],
   declarations: [
-    SubmitDialogComponent
   ]
 })
 export class MaterialsModule { }

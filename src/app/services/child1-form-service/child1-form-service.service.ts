@@ -35,9 +35,6 @@ export class Child1FormServiceService {
         console.log('addStation: '+JSON.stringify(res))
         resolver(element)
       })
-      //doing these steps to avoid api call
-      // this.dataStore.array.push(element)
-      // this._child1.next(Object.assign({}, this.dataStore).array)
     })
   }
 
@@ -67,14 +64,25 @@ export class Child1FormServiceService {
 
   deleteElement(id: Number):Promise<Number>{
     return new Promise((resolver, reject)=>{
-      //doing these steps to avoid api call
-      // this.dataStore.array.push(element)
-      // this._child1.next(Object.assign({}, this.dataStore).array)
       this.deleteStationById(id).subscribe((response:ApiResponse)=>{
         console.log(" promise element: "+id);
         console.log(" promise result: "+JSON.stringify(response.data));
         resolver(id)
       })
     })
+  }
+
+  updateElement(station: Station):Promise<Station>{
+    return new Promise((resolver, reject)=>{
+      this.updateStationById(station).subscribe((response:ApiResponse)=>{
+        console.log(" promise element: "+JSON.stringify(station));
+        console.log(" promise result: "+JSON.stringify(response.data));
+        resolver(station)
+      })
+    })
+  }
+
+  updateStationById(station:Station):Observable<ApiResponse>{
+    return this.http.patch<any>('',station);
   }
 }

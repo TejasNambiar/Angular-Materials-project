@@ -1,0 +1,51 @@
+<h1 mat-dialog-title>Update Station </h1>
+<div mat-dialog-content [formGroup]="updateForm">
+    <table>
+        <!-- ROW 1: NAME AND CODE-->
+        <tr>
+            <td>
+                <!-- STATION NAME -->
+                <div class="form-group row mb-2" id="form-field">
+                    <div class="col-md-8">
+                        <mat-form-field appearance="fill">
+                            <mat-label>Station Name</mat-label>
+                            <input matInput placeholder="Station Name (required)" formControlName="stationName"
+                                required>
+                            <mat-error *ngIf="updateForm.get('stationName')?.errors?.['required']">
+                                Please enter Station name.
+                            </mat-error>
+                            <mat-error *ngIf="updateForm.get('stationName')?.errors?.['minlength']">
+                                The Station name must be longer than 3 characters.
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </td>
+            <td>
+                <!-- TRAIN CODE -->
+                <div class="form-group row mb-2" id="form-field">
+                    <div class="col-md-8">
+                        <mat-form-field appearance="fill">
+                            <mat-label>Station Code</mat-label>
+                            <input matInput placeholder="Station Code (required)" formControlName="stationCode"
+                                required>
+                            <mat-error *ngIf="updateForm.get('stationCode')?.errors?.['required']">
+                                Please enter the Code.
+                            </mat-error>
+                            <mat-error *ngIf="updateForm.get('stationCode')?.errors?.['minlength']">
+                                Code must be atleast 4 characters long.
+                            </mat-error>
+                            <mat-error *ngIf="updateForm.get('stationCode')?.errors?.['maxlength']">
+                                Code longer than 5 characters.
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>
+<div mat-dialog-actions>
+  <button mat-button mat-dialog-close (click)="dialogRef.close(false)">No</button>
+  <button mat-button mat-dialog-close [disabled]="!updateForm.valid" (click)="dialogRef.close(true)">Proceed</button>
+</div>
